@@ -1,0 +1,56 @@
+/* Design tokens extracted from BandUp IELTS Prototype v10. */
+:root{
+  --color-canvas:#F7F7F7;
+  --color-page-bg:#F7F7F7;
+  --color-surface:#FFFFFF;
+  --color-surface-2:#E6F4EC;
+  --color-surface-elevated:#FFFFFF;
+  --color-sidebar:#FFFFFF;
+  --color-brand:#5BB583;
+  --color-primary:#165136;
+  --color-primary-hover:#165136;
+  --color-primary-active:#165136;
+  --color-brand-soft:#E6F4EC;
+  --color-brand-softer:#E6F4EC;
+  --color-brand-line:#E2E8E5;
+  --color-secondary:#288253;
+  --color-secondary-strong:#288253;
+  --color-secondary-soft:#E0F2FE;
+  --color-accent:var(--color-secondary);
+  --color-border:#E2E8E5;
+  --color-border-strong:#8E9290;
+  --color-control-border:#8E9290;
+  --color-icon-muted:#4A5D54;
+  --color-text-primary:#112A1E;
+  --color-text-strong:#112A1E;
+  --color-text-body:#4A5D54;
+  --color-text-secondary:#4A5D54;
+  --color-text-muted:#4A5D54;
+  --color-ink:#112A1E;
+  --color-focus-ring:#165136;
+  --color-focus-ring-soft:rgba(91,181,131,.28);
+  --color-success:#165136;--color-success-bg:#E6F4EC;--color-success-line:#E2E8E5;
+  --color-warning:#9A4707;--color-warning-bg:#FEF6E6;--color-warning-line:#FEF6E6;
+  --color-danger:#B91C1C;--color-danger-bg:#FDECEC;--color-danger-line:#FDECEC;
+  --color-info:#0369A1;--color-info-bg:#E0F2FE;--color-info-line:#E0F2FE;
+  --color-disabled-bg:#E5E7EB;--color-disabled-text:#525866;
+  --mc-students-bg:#E6F4EC;--mc-students-line:#E2E8E5;--mc-students-icon-bg:#5BB583;--mc-students-icon-fg:#112A1E;--mc-students-num:#112A1E;--mc-students-label:#165136;--mc-students-sub:#4A5D54;
+  --mc-teachers-bg:#E0F2FE;--mc-teachers-line:#E0F2FE;--mc-teachers-icon-bg:#288253;--mc-teachers-icon-fg:#FFFFFF;--mc-teachers-num:#112A1E;--mc-teachers-label:#0369A1;--mc-teachers-sub:#4A5D54;
+  --mc-queue-bg:#165136;--mc-queue-line:#165136;--mc-queue-icon-bg:#5BB583;--mc-queue-icon-fg:#112A1E;--mc-queue-num:#FFFFFF;--mc-queue-label:#E6F4EC;--mc-queue-sub:#E6F4EC;
+  --chart-1:#5BB583;--chart-2:#288253;--chart-3:#165136;--chart-4:#E6F4EC;--chart-grid:#E2E8E5;--chart-axis:#4A5D54;
+  --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;
+  --bw:1px;
+  --sh-1:0 1px 2px rgba(17,42,30,.05);
+  --sh-2:0 8px 24px -10px rgba(17,42,30,.14);
+  --sh-3:0 28px 56px -18px rgba(17,42,30,.28);
+  --fs-xs:12px;--fs-sm:14px;--fs-md:15px;
+  --fw-medium:500;--fw-semibold:600;--fw-bold:700;
+  --h-ctl:44px;--h-ctl-sm:32px;
+  --pad-card:20px;
+  --dur:180ms;--ease:cubic-bezier(.2,.7,.2,1);
+  /* Tailwind palette aliases use only official semantic token values. */
+  --blue-50:230 244 236;--blue-100:230 244 236;--blue-200:226 232 229;--blue-300:91 181 131;--blue-400:40 130 83;--blue-500:40 130 83;--blue-600:22 81 54;--blue-700:22 81 54;--blue-800:22 81 54;--blue-900:17 42 30;--blue-950:9 23 16;
+  --sec-50:224 242 254;--sec-100:224 242 254;--sec-200:224 242 254;--sec-300:3 105 161;--sec-400:3 105 161;--sec-500:3 105 161;--sec-600:3 105 161;--sec-700:3 105 161;--sec-800:3 105 161;--sec-900:3 105 161;--sec-950:3 105 161;
+  --ok-50:230 244 236;--ok-100:230 244 236;--ok-200:226 232 229;--ok-300:91 181 131;--ok-400:91 181 131;--ok-500:22 81 54;--ok-600:22 81 54;--ok-700:22 81 54;--ok-800:22 81 54;--ok-900:17 42 30;
+  --slate-50:247 247 247;--slate-100:230 244 236;--slate-200:226 232 229;--slate-300:142 146 144;--slate-400:74 93 84;--slate-500:74 93 84;--slate-600:74 93 84;--slate-700:17 42 30;--slate-800:17 42 30;--slate-900:17 42 30;
+}

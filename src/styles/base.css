@@ -1,0 +1,33 @@
+/* Global base styles. Source: BandUp IELTS Prototype v10. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html,
+body,
+#root { min-height: 100%; }
+
+body { margin: 0; }
+
+button,
+input,
+textarea,
+select { font: inherit; }
+
+img,
+svg { max-width: 100%; }
+
+/* ---------- base ---------- */
+html{font-size:15px;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--color-page-bg);color:var(--color-text-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.serif{font-family:'Plus Jakarta Sans','Inter',system-ui,sans-serif}main h1,main h2,main h3,main h4{color:var(--color-text-primary);letter-spacing:-.01em}
+.serif{font-weight:700;letter-spacing:-.025em;line-height:1.15}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--color-border-strong);border-radius:10px}
+::placeholder{color:var(--color-text-muted);opacity:1}
+summary{list-style:none}summary::-webkit-details-marker{display:none}
+svg.shrink-0{display:block}.btn svg{margin:0}
+main .text-2xl.font-bold{font-size:1.5rem;line-height:2rem}main .text-3xl.font-bold{font-size:1.75rem;line-height:2.25rem}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.fi{animation:fi .25s var(--ease)}
+:focus-visible{outline:2px solid var(--color-focus-ring);outline-offset:2px;border-radius:var(--r-sm)}
+@keyframes spin{to{transform:rotate(360deg)}}
