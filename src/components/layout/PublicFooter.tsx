@@ -10,10 +10,8 @@ const practiceLinks = [
 
 const exploreLinks = [
   { label: 'Forum', to: '/forum' },
-  { label: 'Our mission', to: '/about' },
-  { label: 'Volunteer Hall of Fame', to: '/volunteers' },
-  { label: 'Help Center', to: '/help' },
-  { label: 'FAQ', to: '/faq' },
+  { label: 'About & volunteers', to: '/about' },
+  { label: 'Contact & feedback', to: '/contact' },
 ];
 
 const joinLinks = [

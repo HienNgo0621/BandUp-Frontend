@@ -15,7 +15,7 @@ export function AppLayout({ role }: AppLayoutProps) {
 
   return (
     <div className="app-layout">
-      <AppHeader role={role} onOpenMobileNav={() => setMobileNavOpen(true)} />
+      {role === 'student' ? <AppHeader role={role} onOpenMobileNav={() => setMobileNavOpen(true)} /> : null}
       <div className="app-layout-body">
         <AppSidebar
           role={role}

@@ -1,8 +1,11 @@
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 import { AppLayout } from '../layouts/AppLayout';
 import { PublicLayout } from '../layouts/PublicLayout';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { PlaceholderPage } from '../pages/PlaceholderPage';
+import { LoginPage } from '../pages/LoginPage';
+import { ProtectedRoute } from './guards/ProtectedRoute';
+import { RoleGuard } from './guards/RoleGuard';
 import type { AppRole } from '../types/common';
 import { ROLE_BASE_PATH, ROLE_NAVIGATION } from '../data/navigation';
 
@@ -67,6 +70,10 @@ function buildWorkspaceRoute(
 ): RouteObject {
   const roleLabel = role === 'student' ? 'Student' : role === 'teacher' ? 'Teacher / Volunteer' : 'Admin';
   return {
+    element: <ProtectedRoute />,
+    children: [{
+      element: <RoleGuard allowedRoles={[role]} />,
+      children: [{
     path: ROLE_BASE_PATH[role],
     element: <AppLayout role={role} />,
     children: [
@@ -91,6 +98,8 @@ function buildWorkspaceRoute(
         ),
       })),
     ],
+      }],
+    }],
   };
 }
 
@@ -108,12 +117,11 @@ const publicRoutes: RouteObject = {
         />
       ),
     },
-    { path: 'about', ...placeholder('Our mission', 'Learn about the BandUp IELTS community and its mission.') },
-    { path: 'volunteers', ...placeholder('Volunteer Hall of Fame', 'Meet and recognise the volunteers who support the community.') },
-    { path: 'faq', ...placeholder('Frequently Asked Questions', 'Browse answers to common questions about BandUp IELTS.') },
+    { path: 'about', ...placeholder('About & volunteers', 'Learn about the BandUp IELTS community, its mission and volunteer contributors.') },
+    { path: 'volunteers', element: <Navigate to="/about" replace /> },
     { path: 'contact', ...placeholder('Contact & feedback', 'Get in touch with the BandUp IELTS community.') },
     { path: 'help', ...placeholder('Help Center', 'Search help articles and product guidance.') },
-    { path: 'login', ...placeholder('Log in', 'The authentication form will be implemented in Phase 3.') },
+    { path: 'login', element: <LoginPage /> },
     { path: 'signup', ...placeholder('Join BandUp IELTS', 'Choose an account type and begin registration in Phase 3.') },
     { path: 'forgot-password', ...placeholder('Forgot password', 'Password recovery will be implemented with the authentication flow.') },
     { path: 'apply', ...placeholder('Volunteer with us', 'The Teacher / Volunteer application flow will be migrated in Phase 3.') },

@@ -129,7 +129,6 @@ export function PlaceholderPage({
             <Link to="/mocks">Mock Tests</Link>
             <Link to="/forum">Forum</Link>
             <Link to="/about">About</Link>
-            <Link to="/faq">FAQ</Link>
           </div>
         </div>
       ) : null}

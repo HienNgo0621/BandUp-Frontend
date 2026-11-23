@@ -9,11 +9,8 @@ export const PUBLIC_PRACTICE_ITEMS: NavigationItem[] = [
 ];
 
 export const PUBLIC_ABOUT_ITEMS: NavigationItem[] = [
-  { label: 'Our mission', to: '/about', icon: 'sparkles' },
-  { label: 'Volunteer Hall of Fame', to: '/volunteers', icon: 'users' },
+  { label: 'About & volunteers', to: '/about', icon: 'sparkles' },
   { label: 'Contact & feedback', to: '/contact', icon: 'user' },
-  { label: 'Help Center', to: '/help', icon: 'help-circle' },
-  { label: 'FAQ', to: '/faq', icon: 'info' },
 ];
 
 export const ROLE_BASE_PATH: Record<AppRole, string> = {

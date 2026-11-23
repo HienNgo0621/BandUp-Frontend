@@ -85,6 +85,7 @@ export function PublicHeader() {
               </div>
             ) : null}
           </div>
+          <NavLink to="/help" className={({ isActive }) => getNavClass(isActive)}>Help Center</NavLink>
         </nav>
 
         <div className="public-auth-actions">
@@ -126,6 +127,7 @@ export function PublicHeader() {
               {item.label}
             </NavLink>
           ))}
+          <NavLink to="/help" className="nav" onClick={closeMenus}>Help Center</NavLink>
           <div className="public-mobile-auth">
             <Link to="/login" className="btn b4" onClick={closeMenus}>Log in</Link>
             <Link to="/signup" className="btn b1" onClick={closeMenus}>Join us</Link>

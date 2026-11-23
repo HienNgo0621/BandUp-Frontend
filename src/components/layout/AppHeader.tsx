@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { PUBLIC_PRACTICE_ITEMS, ROLE_BASE_PATH, ROLE_LABELS, ROLE_NAVIGATION, ROLE_NAMES } from '../../data/navigation';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { PUBLIC_PRACTICE_ITEMS, ROLE_BASE_PATH, ROLE_LABELS, ROLE_NAMES } from '../../data/navigation';
 import type { AppRole } from '../../types/common';
 import { Icon } from '../ui/Icon';
+import { useAuth } from '../../hooks/useAuth';
+import { NotificationMenu } from './NotificationMenu';
+import { demoUsers } from '../../services/demo/seedData';
+import { ROLE_BASE_PATH as ROLE_PATHS } from '../../data/navigation';
 
 export interface AppHeaderProps {
   role: AppRole;
@@ -12,6 +16,9 @@ export interface AppHeaderProps {
 export function AppHeader({ role, onOpenMobileNav }: AppHeaderProps) {
   const [practiceOpen, setPracticeOpen] = useState(false);
   const basePath = ROLE_BASE_PATH[role];
+  const { user, logout, switchDemoAccount } = useAuth();
+  const navigate = useNavigate();
+  const [switchOpen, setSwitchOpen] = useState(false);
 
   return (
     <header className="app-header">
@@ -70,33 +77,21 @@ export function AppHeader({ role, onOpenMobileNav }: AppHeaderProps) {
         ) : null}
 
         <div className="app-header-actions">
-          <Link
-            to={`${basePath}/notifications`}
-            className="app-header-icon-button"
-            aria-label="Notifications"
-            title="Notifications"
-          >
-            <Icon name="bell" size={20} />
-          </Link>
+          <NotificationMenu role={role} presentation="header" />
           <div className="app-user-summary">
-            <span className="app-user-avatar">{ROLE_NAMES[role].split(' ').map((part) => part[0]).join('').slice(0, 2)}</span>
+            <span className="app-user-avatar">{(user?.name ?? ROLE_NAMES[role]).split(' ').map((part) => part[0]).join('').slice(0, 2)}</span>
             <span className="app-user-copy">
-              <strong>{ROLE_NAMES[role]}</strong>
-              <small>{ROLE_LABELS[role]}</small>
+              <strong>{user?.name ?? ROLE_NAMES[role]}</strong>
+              <small>{user?.label ?? ROLE_LABELS[role]}</small>
             </span>
+          </div>
+          <button className="app-header-icon-button" type="button" aria-label="Sign out" title="Sign out" onClick={() => { logout(); navigate('/'); }}><Icon name="log-out" size={20} /></button>
+          <div className="relative">
+            <button className="app-header-icon-button" type="button" aria-expanded={switchOpen} onClick={() => setSwitchOpen((open) => !open)} aria-label="Switch demo account" title="Switch demo account"><Icon name="users" size={20} /></button>
+            {switchOpen ? <div className="nav-dropdown card" role="menu" aria-label="Demo accounts">{demoUsers.filter((item) => ['s1', 'v1', 'v2', 'a1', 'sx7'].includes(item.id)).map((item) => <button key={item.id} type="button" className="nav-dropdown-link" role="menuitem" onClick={async () => { const result = await switchDemoAccount(item.id); if (result.ok) { setSwitchOpen(false); navigate(ROLE_PATHS[result.user.role]); } }}>{item.name}{item.status === 'blocked' ? ' · Blocked' : ''}</button>)}</div> : null}
           </div>
         </div>
       </div>
-      {role !== 'student' ? (
-        <div className="app-header-role-line" aria-label="Current workspace role">
-          <span>{ROLE_LABELS[role]} workspace</span>
-          <span className="app-header-role-links">
-            {ROLE_NAVIGATION[role].slice(0, 3).map((item) => (
-              <Link key={item.to} to={item.to}>{item.label}</Link>
-            ))}
-          </span>
-        </div>
-      ) : null}
     </header>
   );
 }

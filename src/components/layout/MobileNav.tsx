@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { PUBLIC_PRACTICE_ITEMS, ROLE_BASE_PATH, ROLE_LABELS, ROLE_NAVIGATION } from '../../data/navigation';
 import type { AppRole } from '../../types/common';
 import { Icon } from '../ui/Icon';
+import { NotificationMenu } from './NotificationMenu';
 
 export interface MobileNavProps {
   role: AppRole;
@@ -41,14 +42,14 @@ export function MobileNav({ role, open, onClose }: MobileNavProps) {
                   <span>{item.label}</span>
                 </NavLink>
               ))}
-              {ROLE_NAVIGATION[role].slice(1).map((item) => (
+              {ROLE_NAVIGATION[role].slice(1).map((item) => item.label === 'Notifications' ? <NotificationMenu key={item.to} role={role} presentation="mobile" onNavigate={onClose} /> : (
                 <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => `nav ${isActive ? 'on' : ''}`} onClick={onClose}>
                   {item.icon ? <Icon name={item.icon} size={19} /> : null}
                   <span>{item.label}</span>
                 </NavLink>
               ))}
             </>
-          ) : ROLE_NAVIGATION[role].map((item) => (
+          ) : ROLE_NAVIGATION[role].map((item) => item.label === 'Notifications' ? <NotificationMenu key={item.to} role={role} presentation="mobile" onNavigate={onClose} /> : (
             <NavLink
               key={item.to}
               to={item.to}

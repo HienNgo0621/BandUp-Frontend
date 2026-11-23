@@ -6,3 +6,9 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Original HTML prototype - reference only
+**/BandUp_IELTS_Prototype_v10.html
+
+# Project documentation
+docs/
