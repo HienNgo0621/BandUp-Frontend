@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { PublicFooter } from '../components/layout/PublicFooter';
 import { PublicHeader } from '../components/layout/PublicHeader';
+import { GuestLockModal } from '../pages/AuthPages';
 
 export function PublicLayout() {
   return (
@@ -10,6 +11,7 @@ export function PublicLayout() {
         <Outlet />
       </main>
       <PublicFooter />
+      <GuestLockModal />
     </div>
   );
 }

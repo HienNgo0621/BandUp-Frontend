@@ -31,3 +31,11 @@ export const appDataService = {
     return this.save(next) ? next : null;
   },
 };
+
+export function saveRegistration(registration: AppData['registrations'][number]): boolean {
+  return appDataService.update((current) => ({ ...current, registrations: [...current.registrations, registration] })) !== null;
+}
+
+export function saveApplication(application: AppData['applications'][number]): boolean {
+  return appDataService.update((current) => ({ ...current, applications: [...current.applications, application] })) !== null;
+}

@@ -8,12 +8,8 @@ import { ProtectedRoute } from './guards/ProtectedRoute';
 import { RoleGuard } from './guards/RoleGuard';
 import type { AppRole } from '../types/common';
 import { ROLE_BASE_PATH, ROLE_NAVIGATION } from '../data/navigation';
-
-function placeholder(title: string, description: string, section?: string): RouteObject {
-  return {
-    element: <PlaceholderPage title={title} description={description} section={section} />,
-  };
-}
+import { AboutPage, ContactPage, GuestPreviewPage, HelpCenterPage, LandingPage, LegalPage } from '../pages/PublicPages';
+import { ApplicationStatusPage, ForgotPasswordPage, SignUpPage, StudentRegistrationPage, VerifyPage, VolunteerApplicationPage } from '../pages/AuthPages';
 
 interface WorkspaceRouteDefinition {
   path: string;
@@ -109,31 +105,28 @@ const publicRoutes: RouteObject = {
   children: [
     {
       index: true,
-      element: (
-        <PlaceholderPage
-          title="Learn, practise and grow together."
-          description="BandUp IELTS is a non-profit, volunteer-run IELTS learning community. This Phase 1 build establishes the React foundation and shared layouts; the complete public page will be migrated in Phase 3."
-          section="BandUp IELTS · Foundation preview"
-        />
-      ),
+      element: <LandingPage />,
     },
-    { path: 'about', ...placeholder('About & volunteers', 'Learn about the BandUp IELTS community, its mission and volunteer contributors.') },
+    { path: 'about', element: <AboutPage /> },
     { path: 'volunteers', element: <Navigate to="/about" replace /> },
-    { path: 'contact', ...placeholder('Contact & feedback', 'Get in touch with the BandUp IELTS community.') },
-    { path: 'help', ...placeholder('Help Center', 'Search help articles and product guidance.') },
+    { path: 'contact', element: <ContactPage /> },
+    { path: 'help', element: <HelpCenterPage /> },
     { path: 'login', element: <LoginPage /> },
-    { path: 'signup', ...placeholder('Join BandUp IELTS', 'Choose an account type and begin registration in Phase 3.') },
-    { path: 'forgot-password', ...placeholder('Forgot password', 'Password recovery will be implemented with the authentication flow.') },
-    { path: 'apply', ...placeholder('Volunteer with us', 'The Teacher / Volunteer application flow will be migrated in Phase 3.') },
-    { path: 'application-status', ...placeholder('Application status', 'Review the status of a Teacher / Volunteer application.') },
-    { path: 'practice/listening', ...placeholder('Listening Practice', 'Guest preview for Listening practice.') },
-    { path: 'practice/reading', ...placeholder('Reading Practice', 'Guest preview for Reading practice.') },
-    { path: 'practice/writing', ...placeholder('Writing Practice', 'Guest preview for Writing practice.') },
-    { path: 'practice/speaking', ...placeholder('Speaking Practice', 'Guest preview for Speaking practice.') },
-    { path: 'mocks', ...placeholder('Mock Tests', 'Guest preview for full IELTS mock tests.') },
-    { path: 'forum', ...placeholder('Forum', 'Guest preview for public community posts.') },
-    { path: 'privacy', ...placeholder('Privacy', 'Privacy information will be migrated with the public content.') },
-    { path: 'guidelines', ...placeholder('Community Guidelines', 'Community guidelines will be migrated with the public content.') },
+    { path: 'signup', element: <SignUpPage /> },
+    { path: 'forgot-password', element: <ForgotPasswordPage /> },
+    { path: 'register/student', element: <StudentRegistrationPage /> },
+    { path: 'verify', element: <VerifyPage /> },
+    { path: 'apply', element: <VolunteerApplicationPage /> },
+    { path: 'application-status', element: <ApplicationStatusPage /> },
+    { path: 'practice/listening', element: <GuestPreviewPage skill="Listening" /> },
+    { path: 'practice/reading', element: <GuestPreviewPage skill="Reading" /> },
+    { path: 'practice/writing', element: <GuestPreviewPage skill="Writing" /> },
+    { path: 'practice/speaking', element: <GuestPreviewPage skill="Speaking" /> },
+    { path: 'mocks', element: <GuestPreviewPage skill="Mock Tests" /> },
+    { path: 'forum', element: <GuestPreviewPage skill="Community" /> },
+    { path: 'faq', element: <Navigate to="/help" replace /> },
+    { path: 'privacy', element: <LegalPage kind="privacy" /> },
+    { path: 'guidelines', element: <LegalPage kind="guidelines" /> },
   ],
 };
 

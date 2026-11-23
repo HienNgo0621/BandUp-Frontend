@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { PUBLIC_PRACTICE_ITEMS, ROLE_BASE_PATH, ROLE_LABELS, ROLE_NAVIGATION } from '../../data/navigation';
 import type { AppRole } from '../../types/common';
 import { Icon } from '../ui/Icon';
 import { NotificationMenu } from './NotificationMenu';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface MobileNavProps {
   role: AppRole;
@@ -11,6 +12,8 @@ export interface MobileNavProps {
 }
 
 export function MobileNav({ role, open, onClose }: MobileNavProps) {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   if (!open) return null;
 
   return (
@@ -62,6 +65,7 @@ export function MobileNav({ role, open, onClose }: MobileNavProps) {
             </NavLink>
           ))}
         </nav>
+        <button type="button" className="nav mobile-nav-signout" onClick={() => { logout(); onClose(); navigate('/'); }}><Icon name="log-out" size={19} /><span>Sign out</span></button>
       </aside>
     </div>
   );

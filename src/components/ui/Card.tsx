@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface CardProps extends HTMLAttributes<HTMLElement> {
-  as?: 'article' | 'section' | 'div';
+  as?: 'article' | 'section' | 'div' | 'figure';
   children: ReactNode;
   interactive?: boolean;
 }

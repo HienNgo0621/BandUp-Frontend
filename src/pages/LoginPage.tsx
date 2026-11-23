@@ -7,6 +7,7 @@ import { useToast } from '../components/ui/Toast';
 import { useAuth } from '../hooks/useAuth';
 import { demoUsers } from '../services/demo/seedData';
 import { ROLE_BASE_PATH, ROLE_LABELS } from '../data/navigation';
+import { Link } from 'react-router-dom';
 
 export function LoginPage() {
   const { user, login } = useAuth();
@@ -34,6 +35,7 @@ export function LoginPage() {
       <Input label="User ID or email" value={identifier} onChange={(event) => setIdentifier(event.target.value)} autoComplete="username" required />
       <Button type="submit" busy={busy}>Continue</Button>
     </form>
+    <div className="auth-link-row"><Link to="/signup">Create an account</Link><Link to="/forgot-password">Forgot password?</Link></div>
     <div className="mt-7 border-t border-slate-200 pt-5"><h2 className="text-sm font-bold text-slate-900">Explore as a demo account</h2>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">{demoUsers.filter((item) => ['s1', 'v1', 'v2', 'a1', 'sx7'].includes(item.id)).map((item) =>
         <Button key={item.id} variant="outline" disabled={busy} onClick={() => void finish(item.id)}>
