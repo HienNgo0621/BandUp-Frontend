@@ -35,6 +35,8 @@ export type IconName =
   | 'info'
   | 'check'
   | 'alert-circle'
+  | 'play'
+  | 'pause'
   | 'plus';
 
 export interface NavigationItem {

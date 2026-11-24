@@ -39,3 +39,11 @@ export function saveRegistration(registration: AppData['registrations'][number])
 export function saveApplication(application: AppData['applications'][number]): boolean {
   return appDataService.update((current) => ({ ...current, applications: [...current.applications, application] })) !== null;
 }
+
+export function addUser(user: AppData['users'][number]): boolean {
+  return appDataService.update((current) => ({ ...current, users: [...current.users, user] })) !== null;
+}
+
+export function updateRegistration(registrationId: string, update: Partial<AppData['registrations'][number]>): boolean {
+  return appDataService.update((current) => ({ ...current, registrations: current.registrations.map((item) => item.id === registrationId ? { ...item, ...update, id: item.id } : item) })) !== null;
+}

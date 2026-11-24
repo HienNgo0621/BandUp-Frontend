@@ -1,47 +1,43 @@
 import { useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { AuthLayout } from '../components/layout/AuthLayout';
 import { Button } from '../components/ui/Button';
-import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { useToast } from '../components/ui/Toast';
 import { useAuth } from '../hooks/useAuth';
-import { demoUsers } from '../services/demo/seedData';
-import { ROLE_BASE_PATH, ROLE_LABELS } from '../data/navigation';
-import { Link } from 'react-router-dom';
+import { ROLE_BASE_PATH } from '../data/navigation';
 
 export function LoginPage() {
   const { user, login } = useAuth();
   const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { showToast } = useToast();
   if (user) return <Navigate to={ROLE_BASE_PATH[user.role]} replace />;
-  const finish = async (id: string) => {
-    setBusy(true);
-    const result = await login(id);
+
+  const finish = async () => {
+    setError(''); setBusy(true);
+    const result = await login(identifier, password);
     setBusy(false);
     if (!result.ok) {
-      showToast(result.reason === 'blocked' ? 'This account has been blocked by an administrator.' : result.reason === 'not-found' ? 'No demo account matches that ID or email.' : 'This browser could not save the session.', 'error');
-      return;
+      const message = result.reason === 'blocked' ? 'This account has been blocked. Please contact support.' : result.reason === 'pending' ? 'Please verify your email before signing in.' : result.reason === 'unavailable' ? 'This browser could not save your session.' : 'The email or user ID and password do not match.';
+      setError(message); showToast(message, 'error'); return;
     }
     const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname;
     navigate(from || ROLE_BASE_PATH[result.user.role], { replace: true });
   };
-  return <div className="placeholder-page"><div className="mx-auto max-w-xl"><Card className="p-6 md:p-8">
-    <span className="placeholder-section-label">BANDUP IELTS · DEMO</span><h1 className="serif placeholder-title">Log in</h1>
-    <p className="placeholder-description">Choose a demo account or enter its user ID or email. Demo accounts do not use passwords.</p>
-    <form className="mt-6 space-y-4" onSubmit={(event) => { event.preventDefault(); void finish(identifier); }}>
+
+  return <AuthLayout eyebrow="BandUp IELTS" title="Welcome back" description="Log in to continue your IELTS journey.">
+    <form className="auth-form" onSubmit={(event) => { event.preventDefault(); void finish(); }}>
       <Input label="User ID or email" value={identifier} onChange={(event) => setIdentifier(event.target.value)} autoComplete="username" required />
-      <Button type="submit" busy={busy}>Continue</Button>
+      <div className="password-field"><Input label="Password" type={showPassword ? 'text' : 'password'} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required /><button className="password-toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? 'Hide password' : 'Show password'}>{showPassword ? 'Hide' : 'Show'}</button></div>
+      {error ? <p className="auth-error" role="alert">{error}</p> : null}
+      <Button type="submit" busy={busy}>Log in</Button>
     </form>
     <div className="auth-link-row"><Link to="/signup">Create an account</Link><Link to="/forgot-password">Forgot password?</Link></div>
-    <div className="mt-7 border-t border-slate-200 pt-5"><h2 className="text-sm font-bold text-slate-900">Explore as a demo account</h2>
-      <div className="mt-3 grid gap-2 sm:grid-cols-2">{demoUsers.filter((item) => ['s1', 'v1', 'v2', 'a1', 'sx7'].includes(item.id)).map((item) =>
-        <Button key={item.id} variant="outline" disabled={busy} onClick={() => void finish(item.id)}>
-          {ROLE_LABELS[item.role]}{item.id === 'sx7' ? ' · Blocked example' : item.role === 'teacher' ? ` · ${item.profile?.shortName}` : ''}
-        </Button>)}</div>
-      <p className="mt-3 text-xs text-slate-500">Account selection is a local prototype flow. No password or authentication server is used.</p>
-    </div>
-  </Card></div></div>;
+  </AuthLayout>;
 }

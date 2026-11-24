@@ -7,17 +7,12 @@ import { authService } from '../services/auth/authService';
 export const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(() => authService.restoreSession()?.user ?? null);
-  const login = useCallback(async (identifier: string): Promise<AuthResult> => {
-    const result = authService.login(identifier);
+  const login = useCallback(async (identifier: string, password: string): Promise<AuthResult> => {
+    const result = await authService.login(identifier, password);
     if (result.ok) setUser(result.user);
     return result;
   }, []);
   const logout = useCallback(() => { authService.logout(); setUser(null); }, []);
-  const switchDemoAccount = useCallback(async (userId: string) => {
-    const result = authService.login(userId);
-    if (result.ok) setUser(result.user);
-    return result;
-  }, []);
-  const value = useMemo<AuthContextValue>(() => ({ user, role: user?.role ?? 'guest', isAuthenticated: Boolean(user), login, logout, switchDemoAccount }), [user, login, logout, switchDemoAccount]);
+  const value = useMemo<AuthContextValue>(() => ({ user, role: user?.role ?? 'guest', isAuthenticated: Boolean(user), login, logout }), [user, login, logout]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

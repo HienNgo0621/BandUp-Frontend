@@ -6,11 +6,23 @@ export const PUBLIC_PRACTICE_ITEMS: NavigationItem[] = [
   { label: 'Reading', to: '/practice/reading', icon: 'book-open' },
   { label: 'Writing', to: '/practice/writing', icon: 'pen-line' },
   { label: 'Speaking', to: '/practice/speaking', icon: 'mic' },
+  { label: 'Mock Tests', to: '/mocks', icon: 'layers' },
+];
+
+export const PUBLIC_COMMUNITY_ITEMS: NavigationItem[] = [
+  { label: 'Forum', to: '/forum', icon: 'message-circle' },
 ];
 
 export const PUBLIC_ABOUT_ITEMS: NavigationItem[] = [
   { label: 'About & volunteers', to: '/about', icon: 'sparkles' },
   { label: 'Contact & feedback', to: '/contact', icon: 'user' },
+];
+
+export const PUBLIC_HELP_ITEM: NavigationItem = { label: 'Help Center', to: '/help', icon: 'help-circle' };
+export const PUBLIC_JOIN_ITEMS: NavigationItem[] = [
+  { label: 'Log in', to: '/login' },
+  { label: 'Join as a student', to: '/signup' },
+  { label: 'Volunteer with us', to: '/apply' },
 ];
 
 export const ROLE_BASE_PATH: Record<AppRole, string> = {
@@ -22,7 +34,6 @@ export const ROLE_BASE_PATH: Record<AppRole, string> = {
 export const ROLE_NAVIGATION: Record<AppRole, NavigationItem[]> = {
   student: [
     { label: 'Home', to: ROLE_BASE_PATH.student, icon: 'home', end: true },
-    { label: 'Mock Tests', to: `${ROLE_BASE_PATH.student}/mocks`, icon: 'layers' },
     { label: 'Forum', to: `${ROLE_BASE_PATH.student}/forum`, icon: 'message-circle' },
     { label: 'Study Plan', to: `${ROLE_BASE_PATH.student}/study-plan`, icon: 'calendar' },
     { label: 'Band Goals', to: `${ROLE_BASE_PATH.student}/goals`, icon: 'chart' },

@@ -5,6 +5,7 @@ import { demoUsers } from '../demo/seedData';
 import { localStorageService, isRecord } from '../storage/localStorageService';
 import { sessionStorageService } from '../storage/sessionStorageService';
 import { STORAGE_KEYS } from '../storage/storageKeys';
+import { verifyPassword } from './passwordService';
 
 interface StoredAppData { users: User[]; [key: string]: unknown }
 function isUser(value: unknown): value is User {
@@ -16,8 +17,14 @@ function isStoredAppData(value: unknown): value is StoredAppData {
 }
 function users(): User[] {
   const storedUsers = localStorageService.read(STORAGE_KEYS.appData, isStoredAppData)?.users ?? [];
-  const known = new Set(storedUsers.map((user) => user.id));
-  return [...storedUsers, ...demoUsers.filter((user) => !known.has(user.id))];
+  const seededById = new Map(demoUsers.map((user) => [user.id, user]));
+  const hydrated = storedUsers.map((user) => {
+    const seeded = seededById.get(user.id);
+    if (!seeded || typeof user.profile?.passwordHash === 'string') return user;
+    return { ...user, profile: { ...seeded.profile, ...user.profile } };
+  });
+  const known = new Set(hydrated.map((user) => user.id));
+  return [...hydrated, ...demoUsers.filter((user) => !known.has(user.id))];
 }
 function sessionFor(user: User): AuthSession { return { userId: user.id, role: user.role, issuedAt: Date.now() }; }
 
@@ -27,10 +34,13 @@ export const authService = {
     const value = userIdOrEmail.trim().toLowerCase();
     return users().find((user) => user.id.toLowerCase() === value || user.email?.toLowerCase() === value) ?? null;
   },
-  login(userIdOrEmail: string): AuthResult {
+  async login(userIdOrEmail: string, password: string): Promise<AuthResult> {
     const user = this.findUser(userIdOrEmail);
     if (!user) return { ok: false, reason: 'not-found' };
     if (user.status === 'blocked') return { ok: false, reason: 'blocked' };
+    if (user.status === 'pending') return { ok: false, reason: 'pending' };
+    const passwordHash = typeof user.profile?.passwordHash === 'string' ? user.profile.passwordHash : null;
+    if (!passwordHash || !(await verifyPassword(password, passwordHash))) return { ok: false, reason: 'invalid-credentials' };
     const session = sessionFor(user);
     if (!sessionStorageService.writeAuthSession(session)) return { ok: false, reason: 'unavailable' };
     return { ok: true, user, session };

@@ -1,26 +1,11 @@
 import { Link } from 'react-router-dom';
+import { PUBLIC_ABOUT_ITEMS, PUBLIC_COMMUNITY_ITEMS, PUBLIC_HELP_ITEM, PUBLIC_JOIN_ITEMS, PUBLIC_PRACTICE_ITEMS } from '../../data/navigation';
 
-const practiceLinks = [
-  { label: 'Listening', to: '/practice/listening' },
-  { label: 'Reading', to: '/practice/reading' },
-  { label: 'Writing', to: '/practice/writing' },
-  { label: 'Speaking', to: '/practice/speaking' },
-  { label: 'Mock Tests', to: '/mocks' },
-];
+const practiceLinks = PUBLIC_PRACTICE_ITEMS.map(({ label, to }) => ({ label, to }));
+const exploreLinks = [...PUBLIC_COMMUNITY_ITEMS, ...PUBLIC_ABOUT_ITEMS, PUBLIC_HELP_ITEM].map(({ label, to }) => ({ label, to }));
+const joinLinks = PUBLIC_JOIN_ITEMS.map(({ label, to }) => ({ label, to }));
 
-const exploreLinks = [
-  { label: 'Forum', to: '/forum' },
-  { label: 'About & volunteers', to: '/about' },
-  { label: 'Contact & feedback', to: '/contact' },
-];
-
-const joinLinks = [
-  { label: 'Log in', to: '/login' },
-  { label: 'Join as a student', to: '/signup' },
-  { label: 'Volunteer with us', to: '/apply' },
-];
-
-function FooterColumn({ title, links }: { title: string; links: typeof practiceLinks }) {
+function FooterColumn({ title, links }: { title: string; links: Array<{ label: string; to: string }> }) {
   return (
     <div>
       <h2 className="footer-column-title">{title}</h2>
@@ -35,7 +20,7 @@ function FooterColumn({ title, links }: { title: string; links: typeof practiceL
   );
 }
 
-export function PublicFooter() {
+export function PublicFooter({ onOpenLegal }: { onOpenLegal: (kind: 'privacy' | 'guidelines') => void }) {
   return (
     <footer className="public-footer">
       <div className="public-footer-grid">
@@ -54,8 +39,8 @@ export function PublicFooter() {
         <p>© 2026 BandUp IELTS Community · A non-profit, volunteer-run project</p>
         <div className="footer-legal-links">
           <Link to="/help">Help Center</Link>
-          <Link to="/privacy">Privacy</Link>
-          <Link to="/guidelines">Guidelines</Link>
+          <button type="button" onClick={() => onOpenLegal('privacy')}>Privacy</button>
+          <button type="button" onClick={() => onOpenLegal('guidelines')}>Guidelines</button>
         </div>
       </div>
     </footer>

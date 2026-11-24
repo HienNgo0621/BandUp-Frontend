@@ -42,6 +42,8 @@ const PATHS: Record<IconName, string> = {
   info: 'M12 16v-4m0-4h.01m8.99 4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
   check: 'm5 12 4 4L19 6',
   'alert-circle': 'M12 8v4m0 4h.01m8.99-4a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+  play: 'm8 5 12 7-12 7V5Z',
+  pause: 'M8 5v14m8-14v14',
   plus: 'M12 5v14m-7-7h14',
 };
 

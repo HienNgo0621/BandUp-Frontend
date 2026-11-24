@@ -4,7 +4,7 @@ import type { StudyPlan, LearningNote, LearningHistory } from '../../types/learn
 import type { ForumPost } from '../../types/forum';
 
 export const demoUsers: User[] = [
-  { id: 's1', name: 'Hien Phuong', email: 'hien.phuong@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Hien P.' } },
+  { id: 's1', name: 'Hien Phuong', email: 'hien.phuong@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Hien P.', passwordHash: 'QmFuZFVwU2FtcGxlU2FsdCE=.h0V6TrUFATmj5JKXNanGd7k+KX4DCbZQ6p479WA53N4=' } },
   { id: 'sx1', name: 'Minh Tran', email: 'minh.t@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Minh T.' } },
   { id: 'sx2', name: 'Hoa Pham', email: 'hoa.p@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Hoa P.' } },
   { id: 'sx3', name: 'Linh Nguyen', email: 'linh.n@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Linh N.' } },
@@ -12,12 +12,12 @@ export const demoUsers: User[] = [
   { id: 'sx5', name: 'Tuan Kiet', email: 'tuan.k@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Tuan K.' } },
   { id: 'sx6', name: 'Mai Do', email: 'mai.d@example.com', role: 'student', status: 'active', label: 'Learner', profile: { shortName: 'Mai D.' } },
   { id: 'sx7', name: 'Bao Le', email: 'bao.l@example.com', role: 'student', status: 'blocked', label: 'Learner', profile: { shortName: 'Bao L.' } },
-  { id: 'v1', name: 'Phuong Hoang', email: 'phuong.hoang@example.com', role: 'teacher', status: 'active', label: 'Teacher / Volunteer', profile: { shortName: 'Hoang' } },
+  { id: 'v1', name: 'Phuong Hoang', email: 'phuong.hoang@example.com', role: 'teacher', status: 'active', label: 'Teacher / Volunteer', profile: { shortName: 'Hoang', passwordHash: 'QmFuZFVwU2FtcGxlU2FsdCE=.h0V6TrUFATmj5JKXNanGd7k+KX4DCbZQ6p479WA53N4=' } },
   { id: 'v2', name: 'Mark Tran', email: 'mark.tran@example.com', role: 'teacher', status: 'active', label: 'Teacher / Volunteer', profile: { shortName: 'Mark' } },
   { id: 'vp1', name: 'Elena Rossi', email: 'elena.r@example.com', role: 'teacher', status: 'pending', label: 'Teacher / Volunteer' },
   { id: 'vp2', name: 'Kenji Sato', email: 'kenji.s@example.com', role: 'teacher', status: 'pending', label: 'Teacher / Volunteer' },
   { id: 'vp3', name: 'Hana Lee', email: 'hana.l@example.com', role: 'teacher', status: 'active', label: 'Teacher / Volunteer' },
-  { id: 'a1', name: 'Admin', role: 'admin', status: 'active', label: 'Administrator', profile: { shortName: 'Admin' } },
+  { id: 'a1', name: 'Admin', email: 'admin@bandup.local', role: 'admin', status: 'active', label: 'Administrator', profile: { shortName: 'Admin', passwordHash: 'QmFuZFVwU2FtcGxlU2FsdCE=.h0V6TrUFATmj5JKXNanGd7k+KX4DCbZQ6p479WA53N4=' } },
 ];
 
 export const demoQuestionBank: QuestionBankSet[] = [
