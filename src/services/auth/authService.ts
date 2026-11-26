@@ -66,8 +66,4 @@ export const authService = {
   },
 };
 
-export function canReadForumVisibility(role: AppRole | 'guest', viewerId: string | null, authorId: string, visibility: 'PUBLIC' | 'TEACHER_ONLY' | 'ONLY_ME'): boolean {
-  if (visibility === 'PUBLIC') return true;
-  if (visibility === 'ONLY_ME') return viewerId === authorId;
-  return viewerId === authorId || role === 'teacher';
-}
+export { canReadForumVisibility } from '../domain/forumPolicy';
