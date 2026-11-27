@@ -11,7 +11,9 @@ import type { QuestionBankSet } from '../../types/question-bank';
 import type { DomainSnapshot } from './schema';
 
 export type DomainErrorCode = 'unauthenticated' | 'forbidden' | 'not-found' | 'validation' |
-  'invalid-state' | 'conflict' | 'storage-unavailable' | 'corrupt-data' | 'unsupported-schema';
+  'invalid-state' | 'conflict' | 'storage-unavailable' | 'corrupt-data' | 'unsupported-schema' |
+  'invalid-json' | 'invalid-snapshot' | 'storage-read-failed' | 'storage-write-failed' |
+  'serialization-failed' | 'migration-pending' | 'recovery-required';
 export interface DomainError { code: DomainErrorCode; message: string; retryable: boolean }
 export type Result<T> = { ok: true; value: T } | { ok: false; error: DomainError };
 export const failure = (code: DomainErrorCode, message: string, retryable = false): Result<never> =>
